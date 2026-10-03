@@ -1,6 +1,8 @@
-# Whitehall
+# Accord
 
-Whitehall (also known as 'Whitehall Admin' or 'Whitehall Publisher') is used by publishers to create and manage content.
+Accord is the United Hampshire government publishing application, derived from the original Whitehall software maintained by [alphagov](https://github.com/alphagov/whitehall). It is used by authorised publishers to create and manage government content for GOV.UH.
+
+This repository preserves the upstream project's history and [MIT licence](LICENCE). References to Whitehall in original internal code, interfaces and development documentation are retained until a reviewed compatibility change is required. The original upstream development instructions below remain as provenance and do not establish the GOV.UH production deployment procedure.
 
 ## Running the Application
 
