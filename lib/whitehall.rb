@@ -26,7 +26,7 @@ module Whitehall
   end
 
   def self.product_name
-    "Whitehall Publisher"
+    "Accord"
   end
 
   def self.available_locales
