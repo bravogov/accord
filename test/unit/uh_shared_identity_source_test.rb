@@ -1,9 +1,10 @@
-require "fast_test_helper"
+require "bundler/setup"
+require "minitest/autorun"
 require "digest"
 
 class UhSharedIdentitySourceTest < Minitest::Test
   def component_directory
-    Bundler.load.specs.find_by_name("govuk_publishing_components").full_gem_path
+    Gem.loaded_specs.fetch("govuk_publishing_components").full_gem_path
   end
 
   def test_approved_uh_header_crown_is_installed
