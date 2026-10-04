@@ -11,7 +11,7 @@ class OrganisationLogoType
     id: 1, title: "No identity", class_name: "no-identity",
   )
   SingleIdentity = create!(
-    id: 2, title: "Single Identity", class_name: "single-identity",
+    id: 2, title: "United Hampshire Government (single identity)", class_name: "single-identity",
   )
   BusinessInnovationSkills = create!(
     id: 3, title: "Department for Business, Innovation and Skills", class_name: "bis",
@@ -20,7 +20,7 @@ class OrganisationLogoType
     id: 4, title: "Scotland Office", class_name: "so",
   )
   HomeOffice = create!(
-    id: 5, title: "Home Office", class_name: "ho",
+    id: 5, title: "Interior Office", class_name: "ho",
   )
   MinistryOfDefence = create!(
     id: 6, title: "Ministry of Defence", class_name: "mod",
@@ -32,7 +32,7 @@ class OrganisationLogoType
     id: 8, title: "HM Coastguard", class_name: "coastguard",
   )
   Portcullis = create!(
-    id: 9, title: "Portcullis", class_name: "portcullis",
+    id: 9, title: "Parliament", class_name: "portcullis",
   )
   UKHydrographicOffice = create!(
     id: 10, title: "UK Hydrographic Office", class_name: "ukho",
@@ -53,9 +53,9 @@ class OrganisationLogoType
     id: 15, title: "Department for Business & Trade", class_name: "dbt",
   )
   PrimeMinistersOffice10DowningStreet = create!(
-    id: 16, title: "Prime Minister's Office, 10 Downing Street", class_name: "no10",
+    id: 16, title: "Chief Minister’s Office, 10 Harrington Court", class_name: "no10",
   )
   GdsCrest = create!(
-    id: 17, title: "GDS", class_name: "gds",
+    id: 17, title: "Government Digital Service", class_name: "gds",
   )
 end
