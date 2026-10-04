@@ -41,7 +41,7 @@ class Admin::WorldLocationNewsTranslationsControllerTest < ActionController::Tes
     world_location_news = build(:world_location_news, translated_into: [:fr])
     create(:world_location, translated_into: [:fr], world_location_news:)
     get :edit, params: { world_location_news_id: @world_location_news, id: "fr" }
-    assert_select "title", text: "Edit Français (French) translation for: Afrolasia - GOV.UH Accord"
+    assert_select "title", text: "Edit Français (French) translation for: Afrolasia - GOV.UK Whitehall Publisher"
   end
 
   view_test "edit presents a form to update an existing translation" do

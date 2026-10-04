@@ -1,12 +1,14 @@
 # Accord
 
-Accord is the United Hampshire government publishing application, derived from the original Whitehall software maintained by [alphagov](https://github.com/alphagov/whitehall). It is used by authorised publishers to create and manage government content for GOV.UH.
+Accord is the United Hampshire government publishing application used by authorised editors to create and manage government content for GOV.UH. It is maintained as a source-preserving fork of the original [alphagov/whitehall](https://github.com/alphagov/whitehall) application. Original upstream authorship, commit history, licence and functional integration contracts are retained.
 
-This repository preserves the upstream project's history and [MIT licence](LICENCE). References to Whitehall in original internal code, interfaces and development documentation are retained until a reviewed compatibility change is required. The original upstream development instructions below remain as provenance and do not establish the GOV.UH production deployment procedure.
+The upstream software retains some `Whitehall` code identifiers while their replacement is individually assessed and tested; these identifiers are not the UH-facing product name.
 
 ## Running the Application
 
-**Use [GOV.UK Docker](https://github.com/alphagov/govuk-docker) to run any commands that follow.**
+The commands below describe the original upstream GOV.UK Docker development environment. They do not constitute the accepted UH production deployment procedure. GOV.UH releases require their own tested configuration, pinned source and immutable image digest.
+
+**Upstream development reference:** [GOV.UK Docker](https://github.com/alphagov/govuk-docker).
 
 ## Technical documentation
 

@@ -13,7 +13,7 @@ class Admin::BaseControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select ".gem-c-layout-header__logo", text: /Accord/
+    assert_select ".gem-c-layout-header__logo", text: /Whitehall Publisher/
     assert_select ".govuk-service-navigation__item", text: "Dashboard"
     assert_select ".govuk-service-navigation__item", text: "View website"
     assert_select ".govuk-service-navigation__item", text: "Switch app"
