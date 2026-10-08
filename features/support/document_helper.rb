@@ -86,7 +86,7 @@ module DocumentHelper
     create(:role_appointment, person:, role:, started_at: Date.parse("2010-01-01"))
     begin_drafting_document options.merge(type: "speech", summary: "Some summary of the content", previously_published: false)
     select SpeechType::Transcript.singular_name, from: "Speech type"
-    choose "Speaker has a profile on GOV.UK"
+    choose "Speaker has a profile on GOV.UH"
     select "Colonel Mustard, Attorney General"
 
     within_fieldset "Delivered on" do
