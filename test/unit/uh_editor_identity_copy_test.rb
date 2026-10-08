@@ -17,6 +17,10 @@ class UhEditorIdentityCopyTest < ActiveSupport::TestCase
     "app/views/admin/editions/_page_address_controls.html.erb" => "Current GOV.UK URL:",
     "app/views/admin/editions/_standard_fields.html.erb" => "preview your document on GOV.UK",
     "app/views/shared/_phase_banner.html.erb" => "changes to Whitehall",
+    "app/views/admin/errors/unprocessable_content.html.erb" => "support.publishing.service.gov.uk",
+    "app/views/admin/errors/bad_request.html.erb" => "support.publishing.service.gov.uk",
+    "app/views/admin/errors/forbidden.html.erb" => "support.publishing.service.gov.uk",
+    "app/views/admin/errors/internal_server_error.html.erb" => "support.publishing.service.gov.uk",
   }.freeze
 
   test "editorial screens do not reintroduce obsolete UK site identity" do
