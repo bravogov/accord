@@ -49,3 +49,11 @@ See the [`docs/`](docs/) directory.
 ## Licence
 
 [MIT License](LICENCE)
+
+## United Hampshire release authority
+
+This maintained Accord source is independent of the original UK's production deployment authority. The inherited workflows that published to GDS/GOV.UK infrastructure are deliberately not enabled in this fork. They must not be invoked for a UH production release.
+
+Source changes are reviewed and tested on GitHub. The current OVH production editor remains on its existing pinned image until an authorised, immutable GitHub-origin build and a single accepted UH delivery mechanism have proved Signon, Publishing API, Content Store, taxonomy, draft/preview, publication, withdrawal, backup/restore and rollback. No repository merge or Docker build alone constitutes a production deployment.
+
+Upstream reusable test and infrastructure actions may be called for CI where their code is appropriate, but UH tests must check out `bravogov/accord`, not `alphagov/whitehall`. Preserve the original Whitehall provenance, compatible internal identifiers and licence.
