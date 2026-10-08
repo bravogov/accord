@@ -40,7 +40,7 @@ Feature: Administering world location news information
       And there is a published document, with a Spanish translation, tagged to the world location
       When I visit the world location news page
       And select the "Featured (Español)" tab
-      And select the "GOV.UK content" child tab
+      And select the "GOV.UH content" child tab
       And search for "Documento destacado"
       Then I should be on the Spanish search results page
       And I should see "Documento destacado" in the document list
