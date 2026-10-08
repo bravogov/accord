@@ -54,8 +54,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
-          repository: alphagov/whitehall
-          ref: ${{ inputs.ref || github.ref }}
+          repository: ${{ github.repository }}
+          ref: ${{ inputs.ref || github.sha }}
           show-progress: false
 
       - name: Checkout Publishing API (for Content Schemas)
