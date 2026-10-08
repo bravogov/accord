@@ -18,10 +18,10 @@
 
       <% if @requires_approval_document_types.present? %>
         <%= render "govuk_publishing_components/components/radio", {
-          heading: "Requires approval from GDS",
+          heading: "Requires additional approval",
           name: "new_document_options",
           id: "new_document_options_requires_approval",
-          hint: sanitize("Before using these content types, #{link_to("submit a GOV.UK support request", "#{Whitehall.support_url}/content_advice_request/new", class: "govuk-link")}, for review by GDS."),
+          hint: "These content types require additional review and approval before use.",
           items: radio_buttons_for(@requires_approval_document_types),
         } %>
       <% end %>
