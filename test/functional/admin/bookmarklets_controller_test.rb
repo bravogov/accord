@@ -5,8 +5,8 @@ class Admin::BookmarkletsControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_select "h1.govuk-heading-xl", text: "Whitehall bookmarklets"
+    assert_select "h1.govuk-heading-xl", text: "Accord bookmarklets"
     assert_select ".govuk-button", text: "Find in admin"
-    assert_select ".govuk-button", text: "Find a PDF publication page in Whitehall"
+    assert_select ".govuk-button", text: "Find a PDF publication page in Accord"
   end
 end
