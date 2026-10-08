@@ -43,6 +43,17 @@ class Admin::DashboardControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template :index
+
+    assert_select "a", text: "New document", count: 1
+    assert_select "a", text: "Documents", count: 1
+    assert_select "a", text: "Manage organisation", count: 1
+    assert_select "a", text: "Corporate information", count: 1
+    assert_select "a", text: "Accord bookmarklets", count: 1
+    assert_select "a", text: "What's new", count: 1
+
+    assert_select "a", text: "GOV.UK style guide", count: 0
+    assert_select "a", text: "GDS support form (Zendesk)", count: 0
+    assert_select "a", text: "Inside GOV.UK blog", count: 0
     assert_equal [@draft_standard_edition, @draft_edition2, @draft_edition1], assigns(:draft_documents)
     assert_equal [@force_published_standard_edition, @force_published_edition2, @force_published_edition1], assigns(:force_published_documents)
   end
