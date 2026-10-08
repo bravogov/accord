@@ -1,6 +1,10 @@
-# Whitehall
+# Accord
 
-Whitehall (also known as 'Whitehall Admin' or 'Whitehall Publisher') is used by publishers to create and manage content.
+Accord is United Hampshire's government publishing application for authorised editors to create, manage, review and publish government content. It is maintained as `bravogov/accord`, derived from the original `alphagov/whitehall` source and commit history.
+
+The upstream application was named Whitehall. Existing Ruby constants, database tables, interfaces and source identifiers bearing that name are retained where required for compatibility; they do not designate the public UH application identity.
+
+Human editors own substantive organisation, minister, role, people and publication records. Software changes must not insert parallel authoritative content outside the native publishing workflow.
 
 ## Running the Application
 
