@@ -1,0 +1,32 @@
+name: Accord UH editorial source assurance
+on:
+  pull_request:
+    paths:
+      - 'app/views/admin/**'
+      - 'app/views/shared/**'
+      - 'test/unit/uh_editor_identity_copy_test.rb'
+      - 'scripts/uh_editor_source_check.rb'
+      - '.github/workflows/uh-editor-source-assurance.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'app/views/admin/**'
+      - 'app/views/shared/**'
+      - 'test/unit/uh_editor_identity_copy_test.rb'
+      - 'scripts/uh_editor_source_check.rb'
+      - '.github/workflows/uh-editor-source-assurance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check-native-editor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out reviewed Accord source
+        uses: actions/checkout@v4
+      - name: Ruby syntax of UH source assurance
+        run: ruby -c scripts/uh_editor_source_check.rb
+      - name: Ruby syntax of source regression test
+        run: ruby -c test/unit/uh_editor_identity_copy_test.rb
+      - name: Check UH publishing screen labels and real editor links
+        run: ruby scripts/uh_editor_source_check.rb
