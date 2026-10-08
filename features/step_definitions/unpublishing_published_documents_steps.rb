@@ -13,7 +13,7 @@ end
 When(/^I unpublish the duplicate, marking it as consolidated into the other page$/) do
   visit admin_edition_path(@duplicate_edition)
   click_on "Withdraw or unpublish"
-  choose "Unpublish: consolidated into another GOV.UK page"
+  choose "Unpublish: consolidated into another GOV.UH page"
   within ".js-app-view-unpublish-withdraw-form__consolidated" do
     fill_in "consolidated_alternative_url", with: @existing_edition.public_url
     click_button "Unpublish"

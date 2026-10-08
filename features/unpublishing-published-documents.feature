@@ -17,7 +17,7 @@ Feature: Unpublishing published documents
     When I unpublish the document and ask for a redirect to "https://www.test.gov.uk/example"
     Then the unpublishing should redirect to "https://www.test.gov.uk/example"
 
-  Scenario: Consolidating a document into another GOV.UK page
+  Scenario: Consolidating a document into another GOV.UH page
     Given there is a published document that is a duplicate of another page
     When I unpublish the duplicate, marking it as consolidated into the other page
     Then the unpublishing should redirect to the existing edition
