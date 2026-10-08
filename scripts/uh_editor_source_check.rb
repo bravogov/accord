@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+# Invoked explicitly with Ruby; do not treat this file as an executable.
 # Lightweight no-database UH editor source checks. Full Rails tests remain authoritative.
 root = File.expand_path("..", __dir__)
 guard = File.join(root, "test/unit/uh_editor_identity_copy_test.rb")
