@@ -39,7 +39,7 @@ When(/^I draft a new authored article "([^"]*)"$/) do |title|
 end
 
 Then(/^I should be able to choose who wrote the article$/) do
-  choose "Writer has a profile on GOV.UK"
+  choose "Writer has a profile on GOV.UH"
   select "Colonel Mustard, Attorney General", from: "edition[role_appointment_id]"
 end
 
