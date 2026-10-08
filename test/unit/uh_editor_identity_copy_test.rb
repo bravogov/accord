@@ -24,7 +24,7 @@ class UhEditorIdentityCopyTest < ActiveSupport::TestCase
   }.freeze
 
   test "editorial screens do not reintroduce obsolete UK site identity" do
-    ORIGINAL_COPY.each do |path,obsolete_copy|
+    ORIGINAL_COPY.each do |path, obsolete_copy|
       content = Rails.root.join(path).read
       assert_not_includes content, obsolete_copy, "#{path} must use the UH editorial identity"
     end
