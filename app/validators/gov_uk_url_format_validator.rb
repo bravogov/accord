@@ -12,20 +12,25 @@ class GovUkUrlFormatValidator < ActiveModel::EachValidator
     .ukri.org
   ].freeze
 
+  # Retain these established internal constant names for compatibility with Whitehall.
+  # Their canonical host values now refer to the GOV.UH estate.
   GOV_UK_CANONICAL_HOSTS = %w[
-    gov.uk
-    www.gov.uk
-    staging.publishing.service.gov.uk
-    www.staging.publishing.service.gov.uk
-    integration.publishing.service.gov.uk
-    www.integration.publishing.service.gov.uk
-    test.gov.uk
-    www.test.gov.uk
-    dev.gov.uk
-    www.dev.gov.uk
+    gov.uhrblx.com
+    www.gov.uhrblx.com
+    staging.publishing.service.gov.uhrblx.com
+    www.staging.publishing.service.gov.uhrblx.com
+    integration.publishing.service.gov.uhrblx.com
+    www.integration.publishing.service.gov.uhrblx.com
+    test.gov.uhrblx.com
+    www.test.gov.uhrblx.com
+    dev.gov.uhrblx.com
+    www.dev.gov.uhrblx.com
   ].freeze
 
   GOV_UK_ASSETS_HOSTS = %w[
+    assets.publishing.service.gov.uhrblx.com
+    assets.staging.publishing.service.gov.uhrblx.com
+    assets.integration.publishing.service.gov.uhrblx.com
     assets.publishing.service.gov.uk
     assets.staging.publishing.service.gov.uk
     assets.integration.publishing.service.gov.uk
@@ -36,7 +41,7 @@ class GovUkUrlFormatValidator < ActiveModel::EachValidator
     return if host.blank?
 
     unless self.class.allowed?(host)
-      record.errors.add(attribute, options[:message] || "is not a GOV.UK URL")
+      record.errors.add(attribute, options[:message] || "is not a GOV.UH URL")
     end
   end
 
@@ -64,13 +69,18 @@ class GovUkUrlFormatValidator < ActiveModel::EachValidator
   end
 
   def self.gov_uk_allow_list_host?(host)
-    # If it's a publishing.service.gov.uk host, it must only be an assets host
-    if host.end_with?(".publishing.service.gov.uk")
+    # Internal publishing application URLs must not be used as public redirects.
+    if host.end_with?(".publishing.service.gov.uhrblx.com") ||
+        host.end_with?(".publishing.service.gov.uk")
       return GOV_UK_ASSETS_HOSTS.include?(host)
     end
 
-    # Otherwise allow any other *.gov.uk domain
-    host.end_with?(".gov.uk")
+    # GOV.UH is canonical. UK government domains remain permitted as external links
+    # where a document genuinely needs to cite them; they are never made relative.
+    host == "gov.uhrblx.com" ||
+      host.end_with?(".gov.uhrblx.com") ||
+      host == "gov.uk" ||
+      host.end_with?(".gov.uk")
   end
 
   def self.external_allow_list_host?(host)

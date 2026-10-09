@@ -249,7 +249,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     get :confirm_unpublish, params: { id: publication, lock_version: publication.lock_version }
 
     alternative_uris_constraints = <<~CONSTRAINTS
-      Must be a GOV.UK URL or a link ending in:
+      Must be a GOV.UH URL or a link ending in:
 
         .caa.co.uk
         .independent-inquiry.uk

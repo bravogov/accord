@@ -4,169 +4,38 @@ en:
       show_banner: false
     whats_new:
       show_banner: false
-      title: What’s new in Whitehall Publisher
-      summary: |
-        Summary of updates from the last 12 months' work by the GOV.UK publishing team on Whitehall Publisher.
-      last_updated: Last updated 27 August 2026
+      title: What’s new in Accord
+      summary: Updates to the GOV.UH government publishing application.
+      last_updated: Last updated 7 October 2026
       introduction:
-        heading: Roadmap overview
+        heading: About Accord
         body_govspeak: |
-          Now:
+          Accord is the publishing application used by authorised government editors to prepare, review and publish content on GOV.UH.
 
-          - We continue to work on the support, maintenance and feature request backlog. 
-          - We are working on some of Whitehall's underlying technical design to make future development of content types easier.
-          - We are working on a new content type, which will allow publishers to create mini sites with a navigational structure within Whitehall.
-
-          Next:
-
-          - We will be looking how existing content types might work with the new content type, and this might make it easier to create and manage content in Whitehall.
-
+          This page records changes to the production publishing application. The [GOV.UH content and publishing guidance](https://guidance.publishing.service.gov.uhrblx.com/) explains how to use the publishing system.
       upcoming_changes:
-        heading: 
-        updates:
+        heading: Planned changes
+        updates: []
       recent_changes:
         heading: Recent changes
         updates:
-          - heading: Access limiting to named users
-            area: Managing documents and editions
-            type: improvement
-            date: 27 August 2026
-            body_govspeak: |
-              Users can now limit access to documents in Whitehall to a list of named users. This adds more security to the publishing process, by limiting access to draft editions before they are published. [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/10116156575).
-
-          - heading: Uploaded images are now visible without refreshing the page.
+          - heading: Image upload temporary storage
             area: Managing images
             type: improvement
-            date: 18 May 2026
+            date: 7 October 2026
             body_govspeak: |
-              Previously images uploaded to Whitehall were not immediately visible to publishers without refreshing the page. A label saying that the image was "processing" was displayed. This has now been redesigned so newly uploaded images are visible straight away, with no need to refresh the page. [See the basecamp post for details](https://app.basecamp.com/4322319/buckets/15005645/messages/9902112282).
-
-          - heading: New Topical Event pages.
-            area: Managing documents and editions
-            type: new feature
-            date: 27 April 2026
-            body_govspeak: |
-              We've made some changes to the Topical Events content type. These are designed to help publishers create pages with greater visual impact, while keeping their content on GOV.UK. [See the basecamp post for details](https://app.basecamp.com/4322319/buckets/15005645/messages/9811414082).
-
-          - heading: Lead images optional on news articles
-            area: Managing documents and editions
+              Corrected the application's writable temporary storage used for image uploads. The existing image-processing checks remain in place. Image previews appear when processing has completed, and the editor reports processing failures.
+          - heading: GOV.UH publishing support
+            area: Publishing support
             type: improvement
-            date: 31 March 2026
+            date: 7 October 2026
             body_govspeak: |
-              As mentioned below, Lead images can now be removed from news articles when they aren't required. 
-
-          - heading: Changes to lead images on news articles
-            area: Managing documents and editions
-            type: improvement
-            date: 2 March 2026
-            body_govspeak: |
-              The workflow for the lead image on news articles is changing.
-
-              You will see a "card" for the Lead image at the top of the images tab. As previously, the image defaults to the publisher's organisation lead image, or a placeholder if no lead image is associated with the organisation.
-
-               - You can change the image to a custom image, if required, by clicking on the "Add" button.
-               - As before, you can crop images and add captions.
-               - To change the custom lead image, you can delete the existing image and upload a new one. 
-              
-              In a future iteration we will be offering the option to remove the lead image when it isn't required.
-
-              [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/9633083274).
-          - heading: Search resets after 30 minutes
-            area: Managing documents
-            type: improvement
-            date: 2 March 2026
-            body_govspeak: |
-              If you search for documents on Whitehall using filters, these will now clear after a period of 30 minutes of inactivity.
-
-              Previously, document search filters (e.g. title, state, author) persisted indefinitely.
-
-              User feedback and analytics data suggested that retained filters are generally helpful within the same session, but persisting search filters after longer gaps was unhelpful and frustrating for publishers.
-
-              This change should speed up the process of finding documents when returning to Whitehall after a break, and reduce the risk of confusion and mistakes caused by filters being applied unexpectedly.
-
-              [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/9633749279).
-
-          - heading: Number formatting in HTML publications
-            area: Publishing HTML attachments
-            type: bug fix
-            date: 2 March 2026
-            body_govspeak: |
-              Until now, any number at the start of a heading on an HTML attachment was appearing as if it was a "numbered heading" on the contents list.
-
-              This was a bug in the system that limited people writing headings if they wanted them to appear correctly in the contents list. 
-              
-              This has now been fixed.
-
-              However, from now on HTML publications with manually numbered headings will only appear as numbered items on the contents list if they are correctly formatted with a full stop after the number.
-              
-              If your HTML attachment uses numbered chapter headings without full stops, you'll need to add a full stop after the number:
-
-              ```
-                 ## 1 Introduction becomes ## 1. Introduction
-              ```
-              
-              [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/9633519850).
-
-          - heading: Some changes to news articles
-            area: Managing documents and editions
-            type: improvement
-            date: 21 November 2025
-            body_govspeak: |
-              As mentioned in the roadmap overview, we are working on the underlying technical design of Whitehall to make future development easier. As part of this work, we have made some changes to how news articles work in Whitehall.
-
-              While the changes behind the scenes are a significant step forward, publishers should notice only a few small differences when creating and managing news articles:
-
-               - The news article type is selected before drafting content.
-               - The primary language is set in the Settings section of the document.
-               - The lead image is selected using a dropdown.
-
-              [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/9271188619).
-
-              
-          - heading: Drag and drop (bulk) image uploads in Whitehall
-            area: Managing images
-            type: improvement
-            date: 03 November 2025
-            body_govspeak: |
-               On the document Image tab you can now upload single or multiple files by either choosing them or dragging them to the page.
-               
-               Once the images are uploaded you will see them listed. You can then crop them (if needed), add the caption, copy the Markdown and select the Lead image as before.
-               
-               [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/9231783110). 
-               
-               This should speed up the process of adding images to documents in Whitehall, especially when adding multiple images.
-          - heading: Unpublishing reason shows on summary pages
-            area: Managing documents and editions
-            type: improvement
-            date: 04 September 2025
-            body_govspeak: |
-               Previously, the reason for unpublishing was not made clear on the summary page of an edition. Now, if an edition has been unpublished, the reason for unpublishing will be shown in the status section on the summary page.
-
-               Examples:
-
-               - Unpublished (3 months ago) due to being published in error
-               - Unpublished (5 months ago) due to being consolidated into another page
-               
-               This helps publishers and reviewers understand why an edition was unpublished.
-          - heading: Consolidation of single and bulk attachments uploading 
-            area: Adding attachments
-            type: improvement
-            date: 04 September 2025
-            body_govspeak: |
-               In a tweak to the user interface, the single and bulk upload options have been consolidated into one "Add attachment" component. This simplifies the process of adding attachments to a document.
-          - heading: Bulk uploading attachments without .zip files
-            area: Adding attachments
-            type: improvement
-            date: 25 July 2025
-            body_govspeak: |
-               Previously, publishers were required to put files in a .zip before bulk uploading. This is no longer the case. Publishers can upload (or drag and drop) files directly onto the page.
-               
-               [See the basecamp post for details](https://3.basecamp.com/4322319/buckets/15005645/messages/8893161083).
+              Publishing support uses the GOV.UH accounts and support guidance.
       guidance:
-        heading: Publishing guidance, updates and support
+        heading: Publishing guidance and support
         body_govspeak: |
-          For support using Whitehall Publisher, read the [GOV.UK content and publishing guidance](https://guidance.publishing.service.gov.uk/).
+          Use the [GOV.UH writing standards](https://guidance.publishing.service.gov.uhrblx.com/writing-to-gov-uh-standards/) when preparing content.
 
-          The [GOV.UK style guide](https://www.gov.uk/guidance/style-guide) covers style, spelling and grammar conventions for content published on GOV.UK.
+          The [publishing guidance](https://guidance.publishing.service.gov.uhrblx.com/publish-update-retire-content/) covers preparing, publishing, updating and retiring content.
 
-          Read the [Inside GOV.UK blog](https://insidegovuk.blog.gov.uk/) for updates about GOV.UK.
+          The [accounts and support guidance](https://guidance.publishing.service.gov.uhrblx.com/accounts-support/) explains how to get help with the publishing service.

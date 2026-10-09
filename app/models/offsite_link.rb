@@ -109,7 +109,15 @@ class OffsiteLink < ApplicationRecord
 private
 
   def government_or_permitted_url?(host)
-    url_is_gov_uk?(host) || url_is_gov_wales?(host) || url_is_gov_scot?(host) || url_is_permitted?(host)
+    url_is_gov_uh?(host) || host == "parliament.uhrblx.com" ||
+      url_is_gov_uk?(host) || url_is_gov_wales?(host) ||
+      url_is_gov_scot?(host) || url_is_permitted?(host)
+  end
+
+  def url_is_gov_uh?(host)
+    return false if host.blank? || host.end_with?(".publishing.service.gov.uhrblx.com")
+
+    host == "gov.uhrblx.com" || host.end_with?(".gov.uhrblx.com")
   end
 
   def url_is_gov_scot?(host)

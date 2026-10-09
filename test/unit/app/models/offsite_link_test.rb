@@ -41,6 +41,26 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     assert offsite_link.valid?
   end
 
+  test "should accept public GOV.UH and parliamentary URLs" do
+    [
+      "https://www.gov.uhrblx.com/government/organisations",
+      "https://legislation.gov.uhrblx.com/",
+      "https://nationalarchives.gov.uhrblx.com/catalogue/",
+      "https://parliament.uhrblx.com/",
+    ].each do |url|
+      assert build(:offsite_link, url:).valid?, url
+    end
+  end
+
+  test "should not accept a deceptive or internal publishing domain" do
+    [
+      "https://gov.uhrblx.com.attacker.example/path",
+      "https://whitehall-admin.publishing.service.gov.uhrblx.com/government/admin/",
+    ].each do |url|
+      assert_not build(:offsite_link, url:).valid?, url
+    end
+  end
+
   test "should be valid with a gov.wales url" do
     offsite_link = build(:offsite_link, url: "http://gov.wales/page")
     assert offsite_link.valid?

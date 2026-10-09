@@ -42,7 +42,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement = build(:unpublished_statistics_announcement, redirect_url: "https://www.youtube.com")
     assert_not announcement.valid?
 
-    assert_match "is not a GOV.UK URL", announcement.errors[:redirect_url].first
+    assert_match "is not a GOV.UH URL", announcement.errors[:redirect_url].first
   end
 
   test "when unpublished, it cannot redirect to itself" do
