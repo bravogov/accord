@@ -46,8 +46,12 @@ class Admin::DashboardControllerTest < ActionController::TestCase
 
     assert_select "a", text: "New document", count: 1
     assert_select "a", text: "Documents", count: 1
-    assert_select "a", text: "Manage organisation", count: 1
-    assert_select "a", text: "Corporate information", count: 1
+    assert_select "h2", text: "Writing and publishing", count: 1
+    assert_select "h2", text: "Product development", count: 1
+    assert_select "h2", text: "Support", count: 1
+    assert_select "a[href='https://guidance.publishing.service.gov.uhrblx.com/writing-to-gov-uh-standards/']", text: "GOV.UH writing standards", count: 1
+    assert_select "a[href='https://guidance.publishing.service.gov.uhrblx.com/publish-update-retire-content/']", text: "GOV.UH content and publishing guidance", count: 1
+    assert_select "a[href='https://guidance.publishing.service.gov.uhrblx.com/accounts-support/']", text: "Accounts and support", count: 1
     assert_select "a", text: "Accord bookmarklets", count: 1
     assert_select "a", text: "What's new", count: 1
 
