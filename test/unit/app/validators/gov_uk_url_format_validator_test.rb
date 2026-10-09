@@ -61,26 +61,47 @@ class GovUkUrlFormatValidatorTest < ActiveSupport::TestCase
     assert_not model.valid?
   end
 
-  test "`can_be_converted_to_relative_path?` matches only 'proper' GOV.UK URLs" do
+  test "`can_be_converted_to_relative_path?` matches only 'proper' GOV.UH URLs" do
     # Production
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("https://gov.uk/some-path")
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://gov.uk/some-path")
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("https://www.gov.uk/some-path")
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://www.gov.uk/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("https://gov.uhrblx.com/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://gov.uhrblx.com/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("https://www.gov.uhrblx.com/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://www.gov.uhrblx.com/some-path")
     # Test environments
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("https://www.integration.publishing.service.gov.uk/some-path")
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("https://www.staging.publishing.service.gov.uk/some-path")
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://www.integration.publishing.service.gov.uk/some-path")
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://www.staging.publishing.service.gov.uk/some-path")
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("https://integration.publishing.service.gov.uk/some-path")
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("https://staging.publishing.service.gov.uk/some-path")
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://integration.publishing.service.gov.uk/some-path")
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://staging.publishing.service.gov.uk/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("https://www.integration.publishing.service.gov.uhrblx.com/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("https://www.staging.publishing.service.gov.uhrblx.com/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://www.integration.publishing.service.gov.uhrblx.com/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://www.staging.publishing.service.gov.uhrblx.com/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("https://integration.publishing.service.gov.uhrblx.com/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("https://staging.publishing.service.gov.uhrblx.com/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://integration.publishing.service.gov.uhrblx.com/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://staging.publishing.service.gov.uhrblx.com/some-path")
     # Local environments
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://www.test.gov.uk/some-path")
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://www.dev.gov.uk/some-path")
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://test.gov.uk/some-path")
-    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://dev.gov.uk/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://www.test.gov.uhrblx.com/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://www.dev.gov.uhrblx.com/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://test.gov.uhrblx.com/some-path")
+    assert GovUkUrlFormatValidator.can_be_converted_to_relative_path?("http://dev.gov.uhrblx.com/some-path")
+  end
+
+  test "permits canonical GOV.UH redirects without allowing a foreign host as internal" do
+    model = @klass.new(url: "https://www.gov.uhrblx.com/government/organisations")
+    assert model.valid?
+
+    model.url = "https://nationalarchives.gov.uhrblx.com/catalogue/"
+    assert model.valid?
+
+    model.url = "https://whitehall-admin.publishing.service.gov.uhrblx.com/government/admin/"
+    assert_not model.valid?
+
+    model.url = "https://gov.uhrblx.com.attacker.example/path"
+    assert_not model.valid?
+
+    model.url = "https://assets.publishing.service.gov.uhrblx.com/media/item"
+    assert model.valid?
+
+    model.url = "https://www.gov.uk/guidance/style-guide"
+    assert model.valid?
+    assert_not GovUkUrlFormatValidator.can_be_converted_to_relative_path?(model.url)
   end
 
   test "doesn't match other gov.uk subdomains" do
