@@ -10,7 +10,7 @@ module ApplicationHelper
     # rubocop:disable Rails/HelperInstanceVariable
     if title_parts.any?
       title_parts.push("Admin") if params[:controller].match?(/^admin\//)
-      title_parts.push("GOV.UK")
+      title_parts.push("GOV.UH")
       @page_title = title_parts.reject(&:blank?).join(" - ")
     else
       @page_title
