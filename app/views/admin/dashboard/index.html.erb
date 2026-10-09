@@ -14,29 +14,14 @@
       items: [
         link_to("New document", admin_new_document_path, class: "govuk-link"),
         link_to("Documents", admin_editions_path, class: "govuk-link"),
+        link_to("GOV.UH writing standards", "https://guidance.publishing.service.gov.uhrblx.com/writing-to-gov-uh-standards/", class: "govuk-link"),
+        link_to("GOV.UH content and publishing guidance", "https://guidance.publishing.service.gov.uhrblx.com/publish-update-retire-content/", class: "govuk-link"),
       ],
     } %>
   </div>
   <div class="govuk-grid-column-one-third">
     <%= render "govuk_publishing_components/components/heading", {
-      text: "Organisation publishing",
-      font_size: "m",
-      heading_level: 2,
-      margin_bottom: 4,
-    } %>
-    <% if current_user.organisation %>
-      <%= render "govuk_publishing_components/components/list", {
-        visible_counters: true,
-        items: [
-          link_to("Manage organisation", admin_organisation_path(current_user.organisation), class: "govuk-link"),
-          link_to("Corporate information", admin_organisation_corporate_information_pages_path(current_user.organisation), class: "govuk-link"),
-        ],
-      } %>
-    <% end %>
-  </div>
-  <div class="govuk-grid-column-one-third">
-    <%= render "govuk_publishing_components/components/heading", {
-      text: "Publishing tools",
+      text: "Product development",
       font_size: "m",
       heading_level: 2,
       margin_bottom: 4,
@@ -44,8 +29,22 @@
     <%= render "govuk_publishing_components/components/list", {
       visible_counters: true,
       items: [
-        link_to("Accord bookmarklets", admin_bookmarklets_instructions_index_path, class: "govuk-link"),
         link_to("What's new", admin_whats_new_path, class: "govuk-link"),
+      ],
+    } %>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <%= render "govuk_publishing_components/components/heading", {
+      text: "Support",
+      font_size: "m",
+      heading_level: 2,
+      margin_bottom: 4,
+    } %>
+    <%= render "govuk_publishing_components/components/list", {
+      visible_counters: true,
+      items: [
+        link_to("Accounts and support", "https://guidance.publishing.service.gov.uhrblx.com/accounts-support/", class: "govuk-link"),
+        link_to("Accord bookmarklets", admin_bookmarklets_instructions_index_path, class: "govuk-link"),
       ],
     } %>
   </div>
