@@ -1,0 +1,51 @@
+product: accord
+original_product: whitehall
+original_repository: https://github.com/alphagov/whitehall
+maintained_repository: https://github.com/bravogov/accord
+implementation_class: Necessary UH adaptation of exact UK adoption
+authority:
+  technical_service: GOV.UH government digital publishing administration
+  content_owner: competent publishing department, office or public body
+  access_grants: authorised GOV.UH Signon application administrators
+users:
+  - authorised organisational editors
+  - authorised reviewers and managing editors
+  - authorised publishing administrators
+native_records:
+  - organisations, classifications and relationships
+  - ministers, roles, people and appointments as published
+  - editioned content, workflow, audit, document relationships
+integrations:
+  identity: publishing Signon
+  publishing: Publishing API
+  content: draft and live Content Store
+  downstream:
+    - Router
+    - search
+    - native GOV.UH public rendering applications
+  assets: native Asset Manager and approved institutional assets
+applicable_adaptations:
+  - UH competence and institutional names
+  - GOV.UH domains and approved support destinations
+  - UH institutional marks and licensing/copyright pages
+  - only actual approved territorial and organisation data
+  - limited visible product renaming from Whitehall to Accord
+prohibitions:
+  - direct database/public HTML edits as editorial authority
+  - universal staff or specialist operational casework
+  - arbitrary role grant from infrastructure permissions
+  - UK crest fallback as UH branding
+  - hardcoded person, minister or organisation data outside native editorial workflow
+acceptance:
+  - authenticated end-to-end editor lifecycle
+  - organisation and person native record integrity
+  - publication event through Publishing API to Router, Content Store and search
+  - source SHA, immutable artefact digest and deployment receipt
+  - asset and browser/accessibility regression
+  - rollback, restore and permissions audit
+observed_2026_10_15:
+  repo_checked: true
+  docs_added_in_proposed_branch: true
+  runtime_accepted_by_this_map: false
+  exact_deployed_source_sha: verify_against_runtime_release_receipt
+  backup_restore_and_rollback: must_be_verified_before_cutover
