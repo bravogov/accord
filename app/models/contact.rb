@@ -12,7 +12,6 @@ class Contact < ApplicationRecord
 
   validates :title, :contact_type, presence: true
   validates :contact_form_url, uri: true, allow_blank: true
-  validate :discord_url_is_usable
 
   validates :street_address, :country_id, presence: true, if: ->(r) { r.has_postal_address? }
   accepts_nested_attributes_for :contact_numbers, allow_destroy: true, reject_if: :all_blank
@@ -83,22 +82,6 @@ class Contact < ApplicationRecord
 
   def contact_type=(new_contact_type)
     self.contact_type_id = new_contact_type && new_contact_type.id
-  end
-
-  def discord_url_is_usable
-    return if discord_url.blank?
-
-    uri = URI.parse(discord_url)
-    invite_hosts = %w[discord.gg]
-    app_hosts = %w[discord.com www.discord.com discordapp.com]
-    invite_path = uri.path.to_s.match?(%r{\A/[a-zA-Z0-9-]{2,}\z})
-    app_path = uri.path.to_s.match?(%r{\A/(?:invite/[a-zA-Z0-9-]{2,}|channels/[a-zA-Z0-9@_/-]+|users/[0-9]+)\z})
-    allowed = uri.is_a?(URI::HTTPS) && uri.userinfo.nil? && uri.query.nil? && uri.fragment.nil?
-    allowed &&= (invite_hosts.include?(uri.host) && invite_path) || (app_hosts.include?(uri.host) && app_path)
-
-    errors.add(:discord_url, "must be a valid Discord invite, channel or user link") unless allowed
-  rescue URI::InvalidURIError
-    errors.add(:discord_url, "must be a valid HTTPS Discord link")
   end
 
   def foi?
