@@ -113,18 +113,18 @@ private
                   :access_and_opening_times,
                   service_ids: [],
                   contact_attributes: %i[
-                    id,
-                    title,
-                    contact_type_id,
-                    comments,
-                    recipient,
-                    street_address,
-                    locality,
-                    region,
-                    postal_code,
-                    country_id,
-                    email,
-                    contact_form_url,
+                    id
+                    title
+                    contact_type_id
+                    comments
+                    recipient
+                    street_address
+                    locality
+                    region
+                    postal_code
+                    country_id
+                    email
+                    contact_form_url
                     discord_url
                   ])
   end
