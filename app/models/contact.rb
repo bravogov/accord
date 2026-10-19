@@ -89,11 +89,14 @@ class Contact < ApplicationRecord
     return if discord_url.blank?
 
     uri = URI.parse(discord_url)
-    permitted_hosts = %w[discord.com www.discord.com discord.gg discordapp.com]
+    invite_hosts = %w[discord.gg]
+    app_hosts = %w[discord.com www.discord.com discordapp.com]
+    invite_path = uri.path.match?(%r{\A/[a-zA-Z0-9-]{2,}\z})
+    app_path = uri.path.match?(%r{\A/(?:invite/[a-zA-Z0-9-]{2,}|channels/[a-zA-Z0-9@_/-]+|users/[0-9]+)\z})
+    allowed = uri.is_a?(URI::HTTPS) && uri.userinfo.nil? && uri.query.nil? && uri.fragment.nil?
+    allowed &&= (invite_hosts.include?(uri.host) && invite_path) || (app_hosts.include?(uri.host) && app_path)
 
-    unless uri.is_a?(URI::HTTPS) && permitted_hosts.include?(uri.host) && uri.path.present? && uri.userinfo.nil?
-      errors.add(:discord_url, "must be a valid HTTPS Discord link")
-    end
+    errors.add(:discord_url, "must be a valid Discord invite, channel or user link") unless allowed
   rescue URI::InvalidURIError
     errors.add(:discord_url, "must be a valid HTTPS Discord link")
   end
