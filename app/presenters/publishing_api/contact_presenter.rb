@@ -85,7 +85,7 @@ module PublishingApi
       details[:contact_form_links] = [contact_form_links] if contact_form_url.present?
       details[:post_addresses] = post_addresses
       details[:email_addresses] = [email_address] if email.present?
-      details[:quick_links] = [{ title: "Discord", url: contact.discord_url }] if contact.discord_url.present()
+      details[:quick_links] = [{ title: "Discord", url: contact.discord_url }] if contact.discord_url.present?
 
       details
     end
