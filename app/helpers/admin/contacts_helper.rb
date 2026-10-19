@@ -47,7 +47,7 @@ module Admin::ContactsHelper
   end
 
   def contact_rows(contact)
-    rows = contact_numbers(contact)
+    rows = []
     rows << contact_email(contact)
     rows << contact_url(contact)
     rows << { key: "Contact type", value: contact.contact_type.name }
@@ -56,15 +56,6 @@ module Admin::ContactsHelper
     rows << { key: "Markdown code", value: "[Contact:#{contact.id}]" }
     rows << contact_comments(contact)
     rows.compact
-  end
-
-  def contact_numbers(contact)
-    contact.contact_numbers.map do |cn|
-      {
-        key: cn.label,
-        value: cn.number,
-      }
-    end
   end
 
   def contact_email(contact)

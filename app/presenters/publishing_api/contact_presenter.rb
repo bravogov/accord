@@ -1,7 +1,6 @@
 module PublishingApi
   class ContactPresenter
-    delegate :contact_numbers,
-             :content_id,
+    delegate :content_id,
              :comments,
              :country,
              :email,
@@ -85,7 +84,6 @@ module PublishingApi
       details[:contact_form_links] = [contact_form_links] if contact_form_url.present?
       details[:post_addresses] = post_addresses
       details[:email_addresses] = [email_address] if email.present?
-      details[:phone_numbers] = phone_numbers if contact_numbers.any?
 
       details
     end
@@ -111,15 +109,6 @@ module PublishingApi
       }
 
       [post_address.compact]
-    end
-
-    def phone_numbers
-      contact_numbers.map do |number|
-        {
-          title: number.label,
-          number: number.number,
-        }
-      end
     end
 
     def email_address

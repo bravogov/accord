@@ -24,29 +24,26 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert_equal "Main office", organisation.contacts.first.title
   end
 
-  test "POST on :create creates associated phone numbers" do
+  test "POST on :create saves email and contact form" do
     organisation = create(:organisation)
 
     post :create,
          params: {
            contact: {
              title: "Head office",
-             contact_numbers_attributes: {
-               "0" => { label: "Main phone", number: "1234" },
-             },
+             email: "test@example.org",
+             contact_form_url: "https://example.org/contact",
              contact_type_id: ContactType::General.id,
            },
            organisation_id: organisation.id,
          }
 
     contact = organisation.contacts.last
-    actual_numbers = contact
-                       .contact_numbers
-                       .map { |cn| "#{cn.label}: #{cn.number}" }
-
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal %("#{contact.title}" created successfully), flash[:notice]
-    assert_equal ["Main phone: 1234"], actual_numbers
+    assert_equal "test@example.org", contact.email
+    assert_equal "https://example.org/contact", contact.contact_form_url
+    assert_empty contact.contact_numbers
   end
 
   test "POST on :create creates contact on the home page of the organisation if told to" do
@@ -116,31 +113,25 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert_equal ["Head office"], organisation.contacts.map(&:title)
   end
 
-  test "PUT on :update updates associated phone numbers" do
+  test "PUT on :update preserves legacy telephone records" do
     organisation = create(:organisation)
     contact = organisation.contacts.create!(title: "Main office", contact_type: ContactType::General)
-    contact_number = contact.contact_numbers.create!(label: "Main phone", number: "1234")
+    contact.contact_numbers.create!(label: "Historic phone", number: "1234")
 
     put :update,
         params: {
           contact: {
             title: "Head office",
-            contact_numbers_attributes: {
-              "0" => { id: contact_number.id, label: "Main phone", number: "5678" },
-            },
+            email: "new@example.org",
           },
           organisation_id: organisation,
           id: contact,
         }
 
-    actual_numbers = contact
-                       .reload
-                       .contact_numbers
-                       .map { |cn| "#{cn.label}: #{cn.number}" }
-
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal %("#{contact.reload.title}" updated successfully), flash[:notice]
-    assert_equal ["Main phone: 5678"], actual_numbers
+    assert_equal "new@example.org", contact.email
+    assert_equal "1234", contact.contact_numbers.first.number
   end
 
   test "PUT on :update adds contact to the home page of the organisation if told to" do

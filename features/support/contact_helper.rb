@@ -6,8 +6,7 @@ module ContactHelper
       postal_code: "12345-123",
       email: "foo@bar.com",
       country: WorldLocation.first.name,
-      phone_number_label: "Main phone number",
-      phone_number: "+22 (0) 111 111-111",
+      discord_url: "https://discord.gg/UHExample",
       feature_on_home_page: "yes",
       contact_type: "General",
     }.merge(contact_details)
@@ -15,10 +14,7 @@ module ContactHelper
     fill_in "Street address", with: contact_details[:street_address]
     fill_in "Postal code", with: contact_details[:postal_code]
     fill_in "Email", with: contact_details[:email]
-    within ".js-add-another__fieldset", match: :first do
-      fill_in "Label", with: contact_details[:phone_number_label]
-      fill_in "Number", with: contact_details[:phone_number]
-    end
+    fill_in "Discord contact", with: contact_details[:discord_url]
     select contact_details[:country], from: "Country"
     # allow passing in nil to say - don't try to choose the feature on
     # home page? setting; maybe because it's the first office for a world
@@ -34,8 +30,7 @@ module ContactHelper
       postal_code: "12345-123",
       email: "foo@bar.com",
       country: WorldLocation.first.name,
-      phone_number_label: "Main phone number",
-      phone_number: "+22 (0) 111 111-111",
+      discord_url: "https://discord.gg/UHExample",
       feature_on_home_page: "yes",
       contact_type: "General",
     }.merge(contact_details)
@@ -43,10 +38,7 @@ module ContactHelper
     fill_in "Street address", with: contact_details[:street_address]
     fill_in "Postal code", with: contact_details[:postal_code]
     fill_in "Email", with: contact_details[:email]
-    within ".js-add-another__fieldset", match: :first do
-      fill_in "Label", with: contact_details[:phone_number_label]
-      fill_in "Number", with: contact_details[:phone_number]
-    end
+    fill_in "Discord contact", with: contact_details[:discord_url]
     select contact_details[:country], from: "Country"
     # allow passing in nil to say - don't try to choose the feature on
     # home page? setting; maybe because it's the first office for a world
@@ -62,8 +54,7 @@ module ContactHelper
       postal_code: "12345-123",
       email: "foo@bar.com",
       country: WorldLocation.first.name,
-      phone_number_label: "Main phone number",
-      phone_number: "+22 (0) 111 111-111",
+      discord_url: "https://discord.gg/UHExample",
       feature_on_home_page: "yes",
       contact_type: "General",
     }.merge(contact_details)
@@ -71,10 +62,7 @@ module ContactHelper
     fill_in "Street address", with: contact_details[:street_address]
     fill_in "Postal code", with: contact_details[:postal_code]
     fill_in "Email", with: contact_details[:email]
-    within ".js-add-another__fieldset", match: :first do
-      fill_in "Label", with: contact_details[:phone_number_label]
-      fill_in "Number", with: contact_details[:phone_number]
-    end
+    fill_in "Discord contact", with: contact_details[:discord_url]
     select contact_details[:country], from: "Country"
     # allow passing in nil to say - don't try to choose the feature on
     # home page? setting; maybe because it's the first office for a world

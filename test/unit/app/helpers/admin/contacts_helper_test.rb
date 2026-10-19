@@ -39,13 +39,13 @@ class Admin::ContactsHelperTest < ActionView::TestCase
     assert_equal expected_output, contact_rows(contact)
   end
 
-  test "method contact_rows return correct rows with contact_numbers present" do
+  test "method contact_rows excludes historical contact methods" do
     organisation = build_stubbed(:organisation)
-    contact = build_stubbed(:contact, contactable: organisation)
-    contact_number = contact.contact_numbers.create!(label: "Main phone", number: "1234")
+    url = "https://discord.gg/OfficialInvite"
+    contact = build_stubbed(:contact, contactable: organisation, discord_url: url)
+    contact.contact_numbers.create!(label: "Historic phone", number: "1234")
 
     expected_output = [
-      { key: contact_number.label, value: contact_number.number },
       { key: "Contact type", value: contact.contact_type.name },
       { key: "On homepage", value: contact_shown_on_home_page_text(contact.contactable, contact) },
       { key: "Markdown code", value: "[Contact:#{contact.id}]" },

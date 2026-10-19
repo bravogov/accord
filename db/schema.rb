@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_16_110000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_19_184500) do
   create_table "access_limiting_individuals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "edition_id", null: false
@@ -204,6 +204,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_16_110000) do
     t.string "content_id", null: false
     t.integer "country_id"
     t.string "postal_code"
+    t.string "discord_url"
     t.index ["contact_type_id"], name: "index_contacts_on_contact_type_id"
     t.index ["contactable_id", "contactable_type"], name: "index_contacts_on_contactable_id_and_contactable_type"
   end

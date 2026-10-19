@@ -71,12 +71,6 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
               email: "gds-mailroom@digital.cabinet-office.gov.uk",
             },
           ],
-          phone_numbers: [
-            {
-              title: "Mail Room",
-              number: "+44 12345 67890",
-            },
-          ],
         },
       }
 

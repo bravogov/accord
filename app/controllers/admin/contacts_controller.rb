@@ -1,7 +1,6 @@
 class Admin::ContactsController < Admin::BaseController
   before_action :find_contactable
   before_action :find_contact, only: %i[edit update destroy confirm_destroy]
-  before_action :destroy_blank_contact_numbers, only: %i[create update]
   extend Admin::HomePageListController
   is_home_page_list_controller_for :contacts,
                                    redirect_to: ->(container, _item) { [:admin, container, Contact] }
@@ -10,12 +9,10 @@ class Admin::ContactsController < Admin::BaseController
 
   def new
     @contact = @contactable.contacts.build
-    @contact.contact_numbers.build
     render :new
   end
 
   def edit
-    @contact.contact_numbers.build unless @contact.contact_numbers.any?
     render :edit
   end
 
@@ -24,7 +21,6 @@ class Admin::ContactsController < Admin::BaseController
       handle_show_on_home_page_param
       redirect_to [:admin, @contact.contactable, Contact], notice: %("#{@contact.title}" updated successfully)
     else
-      @contact.contact_numbers.build if @contact.contact_numbers.blank?
       render :edit
     end
   end
@@ -35,7 +31,6 @@ class Admin::ContactsController < Admin::BaseController
       handle_show_on_home_page_param
       redirect_to [:admin, @contact.contactable, Contact], notice: %("#{@contact.title}" created successfully)
     else
-      @contact.contact_numbers.build if @contact.contact_numbers.blank?
       render :new
     end
   end
@@ -99,14 +94,6 @@ private
     @contact = @contactable.contacts.find(params[:id])
   end
 
-  def destroy_blank_contact_numbers
-    (params[:contact][:contact_numbers_attributes] || {}).each_pair do |_key, attributes|
-      if attributes.except(:id).values.all?(&:blank?)
-        attributes[:_destroy] = "1"
-      end
-    end
-  end
-
   def contact_params
     params.require(:contact)
           .permit(:title,
@@ -119,7 +106,6 @@ private
                   :country_id,
                   :email,
                   :contact_form_url,
-                  :contact_type_id,
-                  contact_numbers_attributes: %i[id label number _destroy])
+                  :contact_type_id)
   end
 end
