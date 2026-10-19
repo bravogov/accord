@@ -1,21 +1,13 @@
 require "test_helper"
 
 class ContactDiscordTest < ActiveSupport::TestCase
-  test "accepts a valid Discord channel or invitation" do
-    contact = Contact.new(discord_url: "https://discord.com/channels/123456789/987654321")
-    contact.valid?
-    assert_empty contact.errors[:discord_url]
+  test "historical telephone and Discord values are never published as contacts" do
+    contact = build(:contact, discord_url: "https://discord.gg/HistoricInvite")
+    contact.contact_numbers.build(label: "Historic telephone", number: "1234")
 
-    contact.discord_url = "https://discord.gg/OfficialInvite"
-    contact.valid?
-    assert_empty contact.errors[:discord_url]
-  end
+    details = PublishingApi::ContactPresenter.new(contact).send(:details)
 
-  test "rejects non-Discord, insecure and invalid links" do
-    ["http://discord.gg/example", "https://discord.gg.evil.example/invite", "https://discord.com/api/webhooks/123/secret", "https://discord.gg/", "javascript:alert(1)", "not a url"].each do |url|
-      contact = Contact.new(discord_url: url)
-      contact.valid?
-      assert_not_empty contact.errors[:discord_url], "Expected #{url} to be rejected"
-    end
+    assert_not details.key?(:quick_links)
+    assert_not details.key?(:phone_numbers)
   end
 end
