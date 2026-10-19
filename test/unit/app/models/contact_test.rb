@@ -2,6 +2,15 @@ require "test_helper"
 require "publishes_to_publishing_api"
 
 class ContactTest < ActiveSupport::TestCase
+  test "accepts verified Discord link syntax" do
+    contact = build(:contact, discord_url: "https://discord.gg/OfficialInvite")
+    assert contact.valid?
+
+    contact.discord_url = "https://discord.gg.evil.example/BadInvite"
+    assert_not contact.valid?
+    assert contact.errors[:discord_url].any?
+  end
+
   test "should be invalid without a description" do
     contact = build(:contact, title: nil)
     assert_not contact.valid?
