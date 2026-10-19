@@ -121,9 +121,6 @@ class Admin::ContactsControllerTest < ActionController::TestCase
           contact: {
             title: "Head office",
             discord_url: "https://discord.com/channels/123456/789012",
-            contact_numbers_attributes: {
-              "0" => { id: contact_number.id, label: "Historic phone", number: "5678" },
-            },
           },
           organisation_id: organisation,
           id: contact,
