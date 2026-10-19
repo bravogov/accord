@@ -24,14 +24,15 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert_equal "Main office", organisation.contacts.first.title
   end
 
-  test "POST on :create saves a Discord contact link" do
+  test "POST on :create saves email and contact form" do
     organisation = create(:organisation)
 
     post :create,
          params: {
            contact: {
              title: "Head office",
-             discord_url: "https://discord.gg/OfficialCabinetOffice",
+             email: "test@example.org",
+             contact_form_url: "https://example.org/contact",
              contact_type_id: ContactType::General.id,
            },
            organisation_id: organisation.id,
@@ -40,7 +41,8 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     contact = organisation.contacts.last
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal %("#{contact.title}" created successfully), flash[:notice]
-    assert_equal "https://discord.gg/OfficialCabinetOffice", contact.discord_url
+    assert_equal "test@example.org", contact.email
+    assert_equal "https://example.org/contact", contact.contact_form_url
     assert_empty contact.contact_numbers
   end
 
@@ -111,7 +113,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
     assert_equal ["Head office"], organisation.contacts.map(&:title)
   end
 
-  test "PUT on :update sets Discord and preserves legacy telephone records" do
+  test "PUT on :update preserves legacy telephone records" do
     organisation = create(:organisation)
     contact = organisation.contacts.create!(title: "Main office", contact_type: ContactType::General)
     contact.contact_numbers.create!(label: "Historic phone", number: "1234")
@@ -120,7 +122,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
         params: {
           contact: {
             title: "Head office",
-            discord_url: "https://discord.com/channels/123456/789012",
+            email: "new@example.org",
           },
           organisation_id: organisation,
           id: contact,
@@ -128,7 +130,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal %("#{contact.reload.title}" updated successfully), flash[:notice]
-    assert_equal "https://discord.com/channels/123456/789012", contact.discord_url
+    assert_equal "new@example.org", contact.email
     assert_equal "1234", contact.contact_numbers.first.number
   end
 
