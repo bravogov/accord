@@ -125,7 +125,6 @@ private
                     country_id
                     email
                     contact_form_url
-                    discord_url
                   ])
   end
 
