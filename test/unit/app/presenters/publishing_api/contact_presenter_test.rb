@@ -28,6 +28,7 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
         comments: "Quiet at weekends",
         email: "gds-mailroom@digital.cabinet-office.gov.uk",
         contact_form_url: "https://www.gov.uk",
+        discord_url: "https://discord.gg/CabinetOffice",
       )
 
       @updated_at = Time.zone.parse("2016-06-23 10:32:00")
@@ -71,10 +72,10 @@ class PublishingApi::ContactPresenterTest < ActiveSupport::TestCase
               email: "gds-mailroom@digital.cabinet-office.gov.uk",
             },
           ],
-          phone_numbers: [
+          quick_links: [
             {
-              title: "Mail Room",
-              number: "+44 12345 67890",
+              title: "Discord",
+              url: "https://discord.gg/CabinetOffice",
             },
           ],
         },
