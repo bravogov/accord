@@ -95,15 +95,3 @@
   <% end %>
 </div>
 
-<div class="govuk-!-margin-bottom-8 app-view-contacts__discord" data-ga4-section="Discord contact">
-  <%= render "govuk_publishing_components/components/input", {
-    label: {
-      text: "Discord contact",
-      heading_size: "l",
-    },
-    name: "#{name}[discord_url]",
-    id: "#{id}_discord_url",
-    value: contact_form.object.discord_url,
-    error_items: errors_for(contact_form.object.errors, :discord_url),
-  } %>
-</div>
