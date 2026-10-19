@@ -47,7 +47,8 @@ module Admin::ContactsHelper
   end
 
   def contact_rows(contact)
-    rows = contact_numbers(contact)
+    rows = []
+    rows << discord_contact(contact)
     rows << contact_email(contact)
     rows << contact_url(contact)
     rows << { key: "Contact type", value: contact.contact_type.name }
@@ -58,13 +59,14 @@ module Admin::ContactsHelper
     rows.compact
   end
 
-  def contact_numbers(contact)
-    contact.contact_numbers.map do |cn|
-      {
-        key: cn.label,
-        value: cn.number,
-      }
-    end
+  def discord_contact(contact)
+    return if contact.discord_url.blank?
+
+    {
+      key: "Discord",
+      value: contact.discord_url,
+      actions: [{ label: "Open Discord", href: contact.discord_url }],
+    }
   end
 
   def contact_email(contact)

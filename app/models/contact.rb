@@ -12,6 +12,8 @@ class Contact < ApplicationRecord
 
   validates :title, :contact_type, presence: true
   validates :contact_form_url, uri: true, allow_blank: true
+  validate :discord_url_is_usable
+
   validates :street_address, :country_id, presence: true, if: ->(r) { r.has_postal_address? }
   accepts_nested_attributes_for :contact_numbers, allow_destroy: true, reject_if: :all_blank
 
@@ -81,6 +83,19 @@ class Contact < ApplicationRecord
 
   def contact_type=(new_contact_type)
     self.contact_type_id = new_contact_type && new_contact_type.id
+  end
+
+  def discord_url_is_usable
+    return if discord_url.blank?
+
+    uri = URI.parse(discord_url)
+    permitted_hosts = %w[discord.com www.discord.com discord.gg discordapp.com]
+
+    unless uri.is_a?(URI::HTTPS) && permitted_hosts.include?(uri.host) && uri.path.present? && uri.userinfo.nil?
+      errors.add(:discord_url, "must be a valid HTTPS Discord link")
+    end
+  rescue URI::InvalidURIError
+    errors.add(:discord_url, "must be a valid HTTPS Discord link")
   end
 
   def foi?
