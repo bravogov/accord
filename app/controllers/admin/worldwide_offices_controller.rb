@@ -11,8 +11,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
     @worldwide_office.build_contact
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     update_params = worldwide_office_params
@@ -113,20 +112,20 @@ private
                   :show_on_home_page,
                   :access_and_opening_times,
                   service_ids: [],
-                  contact_attributes: [
-                    :id,
-                    :title,
-                    :contact_type_id,
-                    :comments,
-                    :recipient,
-                    :street_address,
-                    :locality,
-                    :region,
-                    :postal_code,
-                    :country_id,
-                    :email,
-                    :contact_form_url,
-                    :discord_url,
+                  contact_attributes: %i[
+                    id,
+                    title,
+                    contact_type_id,
+                    comments,
+                    recipient,
+                    street_address,
+                    locality,
+                    region,
+                    postal_code,
+                    country_id,
+                    email,
+                    contact_form_url,
+                    discord_url
                   ])
   end
 
