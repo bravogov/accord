@@ -9,11 +9,9 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   def new
     @worldwide_office = @worldwide_organisation.offices.build
     @worldwide_office.build_contact
-    @worldwide_office.contact.contact_numbers.build
   end
 
   def edit
-    @worldwide_office.contact.contact_numbers.build unless @worldwide_office.contact.contact_numbers.any?
   end
 
   def update
@@ -21,16 +19,11 @@ class Admin::WorldwideOfficesController < Admin::BaseController
 
     update_params[:service_ids] ||= []
 
-    update_params.dig(:contact_attributes, :contact_numbers_attributes)&.each do |_id, contact_number_attribute|
-      contact_number_attribute[:_destroy] = true unless contact_number_attribute[:label].present? || contact_number_attribute[:number].present?
-    end
-
     if @worldwide_office.update(update_params)
       handle_show_on_home_page_param
       republish_draft_worldwide_organisation
       redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "#{@worldwide_office.title} has been edited"
     else
-      @worldwide_office.contact.contact_numbers.build if @worldwide_office.contact.contact_numbers.blank?
       render :edit
     end
   end
@@ -42,7 +35,6 @@ class Admin::WorldwideOfficesController < Admin::BaseController
       republish_draft_worldwide_organisation
       redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation), notice: "#{@worldwide_office.title} has been added"
     else
-      @worldwide_office.contact.contact_numbers.build if @worldwide_office.contact.contact_numbers.blank?
       render :new
     end
   end
@@ -134,7 +126,7 @@ private
                     :country_id,
                     :email,
                     :contact_form_url,
-                    { contact_numbers_attributes: %i[id label number _destroy] },
+                    :discord_url,
                   ])
   end
 
