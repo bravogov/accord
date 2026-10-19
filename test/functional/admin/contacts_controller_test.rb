@@ -114,7 +114,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
   test "PUT on :update sets Discord and preserves legacy telephone records" do
     organisation = create(:organisation)
     contact = organisation.contacts.create!(title: "Main office", contact_type: ContactType::General)
-    contact_number = contact.contact_numbers.create!(label: "Historic phone", number: "1234")
+    contact.contact_numbers.create!(label: "Historic phone", number: "1234")
 
     put :update,
         params: {
