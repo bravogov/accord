@@ -91,8 +91,8 @@ class Contact < ApplicationRecord
     uri = URI.parse(discord_url)
     invite_hosts = %w[discord.gg]
     app_hosts = %w[discord.com www.discord.com discordapp.com]
-    invite_path = uri.path.match?(%r{\A/[a-zA-Z0-9-]{2,}\z})
-    app_path = uri.path.match?(%r{\A/(?:invite/[a-zA-Z0-9-]{2,}|channels/[a-zA-Z0-9@_/-]+|users/[0-9]+)\z})
+    invite_path = uri.path.to_s.match?(%r{\A/[a-zA-Z0-9-]{2,}\z})
+    app_path = uri.path.to_s.match?(%r{\A/(?:invite/[a-zA-Z0-9-]{2,}|channels/[a-zA-Z0-9@_/-]+|users/[0-9]+)\z})
     allowed = uri.is_a?(URI::HTTPS) && uri.userinfo.nil? && uri.query.nil? && uri.fragment.nil?
     allowed &&= (invite_hosts.include?(uri.host) && invite_path) || (app_hosts.include?(uri.host) && app_path)
 
