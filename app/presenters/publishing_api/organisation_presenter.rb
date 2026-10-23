@@ -168,15 +168,15 @@ module PublishingApi
     def corporate_information_pages
       cips = []
 
-      if item.organisation_type.executive_office? || item.organisation_type.civil_service?
-        about_page = item.corporate_information_pages.published.for_slug("about")
-
-        if about_page.present?
-          cips << {
-            title: I18n.t("corporate_information_page.type.title.about"),
-            href: about_page.public_path,
-          }
-        end
+      # An About link is published only when its owning organisation has a
+      # published native About edition. Collections relies on this relationship
+      # rather than fabricating a /about URL from the organisation slug.
+      about_page = item.corporate_information_pages.published.for_slug("about")
+      if about_page.present?
+        cips << {
+          title: I18n.t("corporate_information_page.type.title.about"),
+          href: about_page.public_path,
+        }
       end
 
       if item.organisation_chart_url.present?
