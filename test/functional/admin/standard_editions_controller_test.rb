@@ -390,7 +390,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_select "legend", text: "Limit access"
   end
 
-  view_test "GET edit shows the current GOV.UK URL as a link when the edition has a live edition" do
+  view_test "GET edit shows the current GOV.UH URL as a link when the edition has a live edition" do
     configurable_document_type = build_configurable_document_type("test_type")
     ConfigurableDocumentType.setup_test_types(configurable_document_type)
 
