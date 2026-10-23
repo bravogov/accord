@@ -252,7 +252,13 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     }
 
     by_menu_heading.values.flatten.each do |type|
-      create(:corporate_information_page, organisation:, corporate_information_page_type: type)
+      page = build(:corporate_information_page, organisation:, corporate_information_page_type: type)
+      if type == CorporateInformationPageType::WelshLanguageScheme
+        # Historical UK source records remain readable; new UH publication is excluded.
+        page.save!(validate: false)
+      else
+        page.save!
+      end
     end
 
     by_menu_heading.each_key do |menu_heading|
