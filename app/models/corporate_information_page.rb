@@ -19,6 +19,7 @@ class CorporateInformationPage < Edition
   delegate :alternative_format_contact_email, :acronym, to: :organisation
 
   validates :corporate_information_page_type_id, presence: true
+  validates :body, presence: true, on: :publish, if: :about_page?
 
   scope :with_organisation_govuk_status, ->(status) { joins(:organisation).where(organisations: { govuk_status: status }) }
   scope :accessible_documents_policy, -> { where(corporate_information_page_type_id: CorporateInformationPageType::AccessibleDocumentsPolicy.id) }
