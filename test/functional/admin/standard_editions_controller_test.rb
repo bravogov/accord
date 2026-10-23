@@ -402,7 +402,7 @@ class Admin::StandardEditionsControllerTest < ActionController::TestCase
     assert_response :ok
     assert_select ".app-view-edit-edition__page-address" do
       assert_select "h3", "URL"
-      assert_select "p", text: /Current GOV\.UK URL:/
+      assert_select "p", text: /Current GOV\.UH URL:/
       assert_select "a.govuk-link[href=?]", published_edition.public_url, text: published_edition.public_url
     end
   end
