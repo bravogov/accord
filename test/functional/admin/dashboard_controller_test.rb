@@ -38,7 +38,7 @@ class Admin::DashboardControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "GET :index" do
+  view_test "GET :index" do
     get :index
 
     assert_response :success
