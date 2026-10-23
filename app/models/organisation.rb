@@ -474,7 +474,10 @@ class Organisation < ApplicationRecord
   end
 
   def unused_corporate_information_page_types
-    corporate_information_page_types - corporate_information_pages.map(&:corporate_information_page_type)
+    # Keep the historical UK type registered for records but do not offer it for
+    # new UH corporate information pages (CDR EX013, 23 October 2026).
+    (corporate_information_page_types - corporate_information_pages.map(&:corporate_information_page_type))
+      .reject { |type| type.slug == "welsh-language-scheme" }
   end
 
   def build_corporate_information_page(params)
