@@ -251,14 +251,11 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
       ],
     }
 
+    # Legacy UK historical editions are retained in the comparator fixture.
+    # The separate validation test enforces the prohibition on new UH editions.
+    CorporateInformationPage.any_instance.stubs(:exclude_new_welsh_language_scheme)
     by_menu_heading.values.flatten.each do |type|
-      page = build(:corporate_information_page, organisation:, corporate_information_page_type: type)
-      if type == CorporateInformationPageType::WelshLanguageScheme
-        # Historical UK source records remain readable; new UH publication is excluded.
-        page.save!(validate: false)
-      else
-        page.save!
-      end
+      create(:corporate_information_page, organisation:, corporate_information_page_type: type)
     end
 
     by_menu_heading.each_key do |menu_heading|
