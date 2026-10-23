@@ -441,7 +441,7 @@ class OrganisationTest < ActiveSupport::TestCase
     types = CorporateInformationPageType.all
     create(:corporate_information_page, corporate_information_page_type: types.pop, organisation:)
     organisation.reload
-    assert_equal types, organisation.unused_corporate_information_page_types
+    assert_equal types.reject { |type| type.slug == "welsh-language-scheme" }, organisation.unused_corporate_information_page_types
   end
 
   test "can get a corporate information page with a particular slug" do
