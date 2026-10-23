@@ -98,14 +98,14 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     page = build(:draft_about_corporate_information_page, body: "")
 
     assert_not page.valid?(:publish)
-    assert_includes page.errors[:body], "can't be blank"
+    assert_includes page.errors[:body], "cannot be blank"
   end
 
   test "AboutUs pages cannot be published with whitespace only" do
     page = build(:draft_about_corporate_information_page, body: "   ")
 
     assert_not page.valid?(:publish)
-    assert_includes page.errors[:body], "can't be blank"
+    assert_includes page.errors[:body], "cannot be blank"
   end
 
   test "AboutUs with body content passes the publication body check" do
