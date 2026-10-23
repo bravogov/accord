@@ -88,6 +88,36 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_includes page.errors[:corporate_information_page_type_id], "is excluded from current UH publishing scope"
   end
 
+  test "AboutUs drafts may be saved before the body is ready" do
+    page = build(:draft_about_corporate_information_page, body: "")
+
+    assert page.valid?
+  end
+
+  test "AboutUs pages cannot be published without a body" do
+    page = build(:draft_about_corporate_information_page, body: "")
+
+    assert_not page.valid?(:publish)
+    assert_includes page.errors[:body], "can't be blank"
+  end
+
+  test "AboutUs pages cannot be published with whitespace only" do
+    page = build(:draft_about_corporate_information_page, body: "   ")
+
+    assert_not page.valid?(:publish)
+    assert_includes page.errors[:body], "can't be blank"
+  end
+
+  test "AboutUs with body content passes the publication body check" do
+    page = build(
+      :draft_about_corporate_information_page,
+      body: "## What we do\n\nWe advise departments on their responsibilities.",
+    )
+
+    page.valid?(:publish)
+    assert_empty page.errors[:body]
+  end
+
   test "AboutUs pages do not require a body" do
     corporate_information_page = build(
       :corporate_information_page,
