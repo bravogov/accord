@@ -108,6 +108,21 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     assert_valid_against_links_schema({ links: presented_item.links }, "organisation")
   end
 
+  test "does not advertise a historical Welsh language scheme from an organisation" do
+    organisation = create(:organisation)
+    page = create(
+      :corporate_information_page,
+      organisation:,
+      corporate_information_page_type: CorporateInformationPageType::PublicationScheme,
+      state: "published",
+      major_change_published_at: Time.zone.now,
+    )
+    # Simulate a preserved legacy edition: new Welsh scheme editions are rejected.
+    page.update_column(:corporate_information_page_type_id, CorporateInformationPageType::WelshLanguageScheme.id)
+
+    assert_not_includes present(organisation).content.dig(:details, :secondary_corporate_information_pages), "Welsh"
+  end
+
   test "caps number of featured documents at 6" do
     features = (1..7).to_a.map do |i|
       created_fatality_notice = create(:published_fatality_notice, title: "fatality-notice-#{i}")
