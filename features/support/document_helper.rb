@@ -86,7 +86,9 @@ module DocumentHelper
     create(:role_appointment, person:, role:, started_at: Date.parse("2010-01-01"))
     begin_drafting_document options.merge(type: "speech", summary: "Some summary of the content", previously_published: false)
     select SpeechType::Transcript.singular_name, from: "Speech type"
-    choose "Speaker has a profile on GOV.UH"
+    # The stable native radio input is the same for speeches and authored articles.
+    # Its visible label correctly switches between Speaker and Writer.
+    choose "edition_role_appointment_speaker_on_govuk"
     select "Colonel Mustard, Attorney General"
 
     within_fieldset "Delivered on" do
