@@ -269,11 +269,14 @@ module PublishingApi::CorporateInformationPagePresenterTest
           organisation:,
         )
 
+      # Preserve a legacy published UK edition to exercise historical links.
+      # UH now rejects creation of new Welsh language scheme pages.
       @welsh_language_scheme_corporate_information_page =
-        create(
+        build(
           :welsh_language_scheme_corporate_information_page,
           organisation:,
         )
+      @welsh_language_scheme_corporate_information_page.save!(validate: false)
 
       create_list(
         :published_publication,
