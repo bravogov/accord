@@ -79,6 +79,45 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   should_be_invalid_without(:corporate_information_page, :corporate_information_page_type)
   should_be_invalid_without(:corporate_information_page, :body)
 
+  test "new Welsh language scheme corporate page is excluded by UH scope" do
+    page = build(
+      :corporate_information_page,
+      corporate_information_page_type: CorporateInformationPageType::WelshLanguageScheme,
+    )
+    assert_not page.valid?
+    assert_includes page.errors[:corporate_information_page_type_id], "is excluded from current UH publishing scope"
+  end
+
+  test "AboutUs drafts may be saved before the body is ready" do
+    page = build(:draft_about_corporate_information_page, body: "")
+
+    assert page.valid?
+  end
+
+  test "AboutUs pages cannot be published without a body" do
+    page = build(:draft_about_corporate_information_page, body: "")
+
+    assert_not page.valid?(:publish)
+    assert_includes page.errors[:body], "cannot be blank"
+  end
+
+  test "AboutUs pages cannot be published with whitespace only" do
+    page = build(:draft_about_corporate_information_page, body: "   ")
+
+    assert_not page.valid?(:publish)
+    assert_includes page.errors[:body], "cannot be blank"
+  end
+
+  test "AboutUs with body content passes the publication body check" do
+    page = build(
+      :draft_about_corporate_information_page,
+      body: "## What we do\n\nWe advise departments on their responsibilities.",
+    )
+
+    page.valid?(:publish)
+    assert_empty page.errors[:body]
+  end
+
   test "AboutUs pages do not require a body" do
     corporate_information_page = build(
       :corporate_information_page,
@@ -242,6 +281,9 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
       ],
     }
 
+    # Legacy UK historical editions are retained in the comparator fixture.
+    # The separate validation test enforces the prohibition on new UH editions.
+    CorporateInformationPage.any_instance.stubs(:exclude_new_welsh_language_scheme)
     by_menu_heading.values.flatten.each do |type|
       create(:corporate_information_page, organisation:, corporate_information_page_type: type)
     end

@@ -61,7 +61,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
           crest: "single-identity",
         },
         foi_exempt: false,
-        ordered_corporate_information_pages: [],
+        ordered_corporate_information_pages: [{ title: I18n.t("corporate_information_page.type.title.about"), href: "#{public_path}/about" }],
         secondary_corporate_information_pages: "",
         ordered_featured_links: [],
         ordered_featured_documents: [],
@@ -106,6 +106,28 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
 
     assert_valid_against_publisher_schema(presented_item.content, "organisation")
     assert_valid_against_links_schema({ links: presented_item.links }, "organisation")
+  end
+
+  test "does not advertise a historical Welsh language scheme from an organisation" do
+    organisation = create(:organisation)
+    page = create(
+      :corporate_information_page,
+      organisation:,
+      corporate_information_page_type: CorporateInformationPageType::PublicationScheme,
+      state: "published",
+      major_change_published_at: Time.zone.now,
+    )
+    # Simulate a preserved legacy edition: new Welsh scheme editions are rejected.
+    page.update_column(:corporate_information_page_type_id, CorporateInformationPageType::WelshLanguageScheme.id)
+
+    assert_not_includes present(organisation).content.dig(:details, :secondary_corporate_information_pages), "Welsh"
+  end
+
+  test "does not advertise an unpublished organisation About edition" do
+    organisation = create(:organisation)
+    create(:draft_about_corporate_information_page, organisation:)
+
+    assert_empty present(organisation).content.dig(:details, :ordered_corporate_information_pages)
   end
 
   test "caps number of featured documents at 6" do

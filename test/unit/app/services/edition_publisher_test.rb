@@ -80,6 +80,20 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert_equal "This edition is invalid: Title cannot be blank", publisher.failure_reason
   end
 
+  test "#perform! refuses a submitted organisation About page with no body" do
+    edition = create(
+      :corporate_information_page,
+      :submitted,
+      corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id,
+      body: "",
+    )
+    publisher = EditionPublisher.new(edition)
+
+    assert_not publisher.perform!
+    assert_equal "submitted", edition.state
+    assert_includes publisher.failure_reasons.join(", "), "Body cannot be blank"
+  end
+
   test "#perform! with an invalid form tab on a standard edition refuses to publish" do
     configurable_document_type = build_configurable_document_type("test_type", {
       "forms" => {

@@ -269,6 +269,9 @@ module PublishingApi::CorporateInformationPagePresenterTest
           organisation:,
         )
 
+      # Historical UK fixture tests need a complete native document and edition,
+      # despite the new UH creation gate (which is tested separately).
+      CorporateInformationPage.any_instance.stubs(:exclude_new_welsh_language_scheme)
       @welsh_language_scheme_corporate_information_page =
         create(
           :welsh_language_scheme_corporate_information_page,

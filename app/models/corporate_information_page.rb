@@ -9,6 +9,7 @@ class CorporateInformationPage < Edition
   has_one :organisation, -> { includes(:translations) }, through: :edition_organisation, autosave: false
 
   validate :unique_organisation_and_page_type, on: :create, if: :organisation
+  validate :exclude_new_welsh_language_scheme, on: :create
 
   add_trait do
     def process_associations_before_draft_creation(new_edition)
@@ -18,6 +19,7 @@ class CorporateInformationPage < Edition
   delegate :alternative_format_contact_email, :acronym, to: :organisation
 
   validates :corporate_information_page_type_id, presence: true
+  validates :body, presence: true, on: :publish, if: :about_page?
 
   scope :with_organisation_govuk_status, ->(status) { joins(:organisation).where(organisations: { govuk_status: status }) }
   scope :accessible_documents_policy, -> { where(corporate_information_page_type_id: CorporateInformationPageType::AccessibleDocumentsPolicy.id) }
@@ -122,6 +124,12 @@ class CorporateInformationPage < Edition
   end
 
 private
+
+  def exclude_new_welsh_language_scheme
+    return unless corporate_information_page_type_id == CorporateInformationPageType::WelshLanguageScheme.id
+
+    errors.add(:corporate_information_page_type_id, "is excluded from current UH publishing scope")
+  end
 
   def string_for_slug
     nil
