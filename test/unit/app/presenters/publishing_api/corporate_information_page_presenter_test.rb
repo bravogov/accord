@@ -269,14 +269,14 @@ module PublishingApi::CorporateInformationPagePresenterTest
           organisation:,
         )
 
-      # Preserve a legacy published UK edition to exercise historical links.
-      # UH now rejects creation of new Welsh language scheme pages.
+      # Historical UK fixture tests need a complete native document and edition,
+      # despite the new UH creation gate (which is tested separately).
+      CorporateInformationPage.any_instance.stubs(:exclude_new_welsh_language_scheme)
       @welsh_language_scheme_corporate_information_page =
-        build(
+        create(
           :welsh_language_scheme_corporate_information_page,
           organisation:,
         )
-      @welsh_language_scheme_corporate_information_page.save!(validate: false)
 
       create_list(
         :published_publication,
