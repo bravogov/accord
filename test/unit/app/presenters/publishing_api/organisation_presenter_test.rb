@@ -61,7 +61,7 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
           crest: "single-identity",
         },
         foi_exempt: false,
-        ordered_corporate_information_pages: [],
+        ordered_corporate_information_pages: [{ title: I18n.t("corporate_information_page.type.title.about"), href: "#{public_path}/about" }],
         secondary_corporate_information_pages: "",
         ordered_featured_links: [],
         ordered_featured_documents: [],
@@ -121,6 +121,13 @@ class PublishingApi::OrganisationPresenterTest < ActionView::TestCase
     page.update_column(:corporate_information_page_type_id, CorporateInformationPageType::WelshLanguageScheme.id)
 
     assert_not_includes present(organisation).content.dig(:details, :secondary_corporate_information_pages), "Welsh"
+  end
+
+  test "does not advertise an unpublished organisation About edition" do
+    organisation = create(:organisation)
+    create(:draft_about_corporate_information_page, organisation:)
+
+    assert_empty present(organisation).content.dig(:details, :ordered_corporate_information_pages)
   end
 
   test "caps number of featured documents at 6" do
