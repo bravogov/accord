@@ -79,6 +79,15 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   should_be_invalid_without(:corporate_information_page, :corporate_information_page_type)
   should_be_invalid_without(:corporate_information_page, :body)
 
+  test "new Welsh language scheme corporate page is excluded by UH scope" do
+    page = build(
+      :corporate_information_page,
+      corporate_information_page_type: CorporateInformationPageType::WelshLanguageScheme,
+    )
+    assert_not page.valid?
+    assert_includes page.errors[:corporate_information_page_type_id], "is excluded from current UH publishing scope"
+  end
+
   test "AboutUs pages do not require a body" do
     corporate_information_page = build(
       :corporate_information_page,
