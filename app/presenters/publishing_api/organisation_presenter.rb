@@ -220,13 +220,6 @@ module PublishingApi
         )
       end
 
-      if item.corporate_information_pages.published.for_slug("welsh-language-scheme").present?
-        sentences << I18n.t(
-          "worldwide_organisation.corporate_information.welsh_language_scheme_html",
-          link: t_corporate_information_page_link(item, "welsh-language-scheme"),
-        )
-      end
-
       if item.corporate_information_pages.published.for_slug("personal-information-charter").present?
         sentences << I18n.t(
           "worldwide_organisation.corporate_information.personal_information_charter_html",
