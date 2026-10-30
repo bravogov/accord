@@ -371,15 +371,13 @@ private
     exclusion_params = edition_params["all_nation_applicability"] || []
     edition_params["all_nation_applicability"] = exclusion_params.include?("all_nations") ? "1" : "0"
 
-    build_nation_params(nation_id: 1, checked: exclusion_params.include?("england"))
-    build_nation_params(nation_id: 2, checked: exclusion_params.include?("scotland"))
-    build_nation_params(nation_id: 3, checked: exclusion_params.include?("wales"))
-    build_nation_params(nation_id: 4, checked: exclusion_params.include?("northern_ireland"))
+    build_nation_params(index: 0, checked: exclusion_params.include?("england"))
+    build_nation_params(index: 1, checked: exclusion_params.include?("havenstead"))
   end
 
-  def build_nation_params(nation_id:, checked:)
-    edition_params["nation_inapplicabilities_attributes"][(nation_id - 1).to_s]["excluded"] = checked ? "1" : "0"
-    edition_params["nation_inapplicabilities_attributes"][(nation_id - 1).to_s]["alternative_url"] = nil unless checked
+  def build_nation_params(index:, checked:)
+    edition_params["nation_inapplicabilities_attributes"][index.to_s]["excluded"] = checked ? "1" : "0"
+    edition_params["nation_inapplicabilities_attributes"][index.to_s]["alternative_url"] = nil unless checked
   end
 
   def set_creator_for_review_reminder
