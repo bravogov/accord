@@ -145,7 +145,7 @@ class ReportingRake < ActiveSupport::TestCase
           -------------------------------
           2 editions have the error `Body embeds contact (ID 9999999) that doesn't exist`. Example edition IDs: #{@edition_with_multiple_issues.id}, #{@edition_with_missing_contact.id}
           1 editions have the error `Body cannot be blank`. Example edition IDs: #{@blank_edition.id}
-          1 editions have the error `Excluded nations - you cannot select all UK nations and also exclude nations`. Example edition IDs: #{@edition_with_multiple_issues.id}
+          1 editions have the error `Excluded nations - you cannot select all UH nations and also exclude a constituent country`. Example edition IDs: #{@edition_with_multiple_issues.id}
 
           Invalid published editions (2)
           -------------------------------
