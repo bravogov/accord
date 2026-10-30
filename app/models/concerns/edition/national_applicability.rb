@@ -13,7 +13,7 @@ module Edition::NationalApplicability
     validate :applicability_options
     has_many :nation_inapplicabilities, foreign_key: :edition_id, dependent: :destroy, autosave: true
     validates_associated :nation_inapplicabilities
-    validates :nation_inapplicabilities, length: { maximum: Nation.all.count - 1, message: "can not exclude all nations" }
+    validates :nation_inapplicabilities, length: { maximum: Nation.legacy_historical.count - 1, message: "can not exclude all nations" }
 
     add_trait Trait
   end
