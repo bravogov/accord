@@ -51,11 +51,11 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_select "h2.govuk-fieldset__heading", text: "Requires approval from GDS"
+    assert_select "h2.govuk-fieldset__heading", text: "Requires additional approval"
     assert_select "#new_document_options_requires_approval input[type=radio][name=new_document_options][value=topical_event]"
   end
 
-  view_test "GET #index does not render the 'Requires approval from GDS' section when no formats require approval" do
+  view_test "GET #index does not render the 'Requires additional approval' section when no formats require approval" do
     organisation = create(:organisation, name: "ministry-of-defence", handles_fatalities: true)
     login_as(:writer, organisation)
     ConfigurableDocumentType.stubs(:find).with("topical_event").returns(ConfigurableDocumentType.new({ "settings" => { "organisations" => [create(:organisation).content_id] } }))
@@ -63,7 +63,7 @@ class Admin::NewDocumentControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_select "h2.govuk-fieldset__heading", text: "Requires approval from GDS", count: 0
+    assert_select "h2.govuk-fieldset__heading", text: "Requires additional approval", count: 0
   end
 
   view_test "GET #index renders the Standard Edition option if the feature toggle is on" do
