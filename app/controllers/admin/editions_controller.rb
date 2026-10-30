@@ -368,6 +368,14 @@ private
   def build_national_exclusion_params
     return if edition_params["nation_inapplicabilities_attributes"].blank?
 
+    # New editor submissions are restricted to the two UH constituent
+    # countries. Historic nation rows remain on retained editions; no new
+    # Scottish, Welsh or Northern Irish exclusion can be submitted here.
+    fields = edition_params["nation_inapplicabilities_attributes"]
+    fields.keys.each { |key| fields.delete(key) unless %w[0 1].include?(key) }
+    fields["0"]["nation_id"] = "1" if fields["0"]
+    fields["1"]["nation_id"] = "5" if fields["1"]
+
     exclusion_params = edition_params["all_nation_applicability"] || []
     edition_params["all_nation_applicability"] = exclusion_params.include?("all_nations") ? "1" : "0"
 
