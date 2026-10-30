@@ -35,6 +35,6 @@ class UnitedHampshireNationalApplicabilityTest < ActiveSupport::TestCase
     historical.valid?
 
     assert_empty historical.errors[:nation_id]
-    refute_includes Nation.potentially_inapplicable.map(&:id), historical.nation_id
+    assert_not_includes Nation.potentially_inapplicable.map(&:id), historical.nation_id
   end
 end
