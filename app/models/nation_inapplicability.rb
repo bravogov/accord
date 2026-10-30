@@ -8,18 +8,9 @@ class NationInapplicability < ApplicationRecord
           where(nation_id: nation.id)
         }
 
-  validate :nation_is_current_or_retained_historical
-
-  def nation_is_current_or_retained_historical
-    return if Nation.potentially_inapplicable.map(&:id).include?(nation_id)
-
-    # Old published records keep their original UK nation ID and label.
-    # New editions cannot create a legacy exclusion.
-    historical_ids = Nation.legacy_historical.map(&:id) - Nation.potentially_inapplicable.map(&:id)
-    return if persisted? && historical_ids.include?(nation_id)
-
-    errors.add(:nation_id, "must be England or Havenstead")
-  end
+  # Maintain compatibility with archived UK-era editions and their original
+  # publisher records. The native Accord form offers only England/Havenstead.
+  validates :nation_id, inclusion: { in: Nation.all.map(&:id) }
   validates :alternative_url, uri: true, allow_blank: true
 
   attr_accessor :excluded
