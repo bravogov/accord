@@ -30,10 +30,11 @@ class UnitedHampshireNationalApplicabilityTest < ActiveSupport::TestCase
     assert(edition.errors[:nation_inapplicabilities].any? { |error| error.include?("both England and Havenstead") })
   end
 
-  test "new exclusions cannot use inherited UK nation identifiers" do
-    legacy = NationInapplicability.new(nation_id: 2)
-    legacy.valid?
+  test "historic UK nation identifiers remain valid for retained records" do
+    historical = NationInapplicability.new(nation_id: 2)
+    historical.valid?
 
-    assert legacy.errors[:nation_id].any?
+    assert_empty historical.errors[:nation_id]
+    refute_includes Nation.potentially_inapplicable.map(&:id), historical.nation_id
   end
 end
