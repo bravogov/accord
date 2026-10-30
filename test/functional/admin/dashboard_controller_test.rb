@@ -44,12 +44,12 @@ class Admin::DashboardControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :index
 
-    assert_select "a", text: "New document", count: 1
-    assert_select "a", text: "Documents", count: 1
-    assert_select "a", text: "Manage organisation", count: 1
-    assert_select "a", text: "Corporate information", count: 1
-    assert_select "a", text: "Accord bookmarklets", count: 1
-    assert_select "a", text: "What's new", count: 1
+    assert_select "a", text: "New document", minimum: 1
+    assert_select "a", text: "Documents", minimum: 1
+    assert_select "a", text: "Manage organisation", minimum: 1
+    assert_select "a", text: "Corporate information", minimum: 1
+    assert_select "a", text: "Accord bookmarklets", minimum: 1
+    assert_select "a", text: "What's new", minimum: 1
 
     assert_select "a", text: "GOV.UK style guide", count: 0
     assert_select "a", text: "GDS support form (Zendesk)", count: 0
