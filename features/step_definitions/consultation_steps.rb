@@ -17,10 +17,8 @@ When(/^I draft a new "(.*?)" language consultation "(.*?)"$/) do |locale, title|
     fill_in_date_and_time_field(6.days.from_now.to_s)
   end
 
-  check "Does not apply to Wales"
-  fill_in "edition[nation_inapplicabilities_attributes][2][alternative_url]", with: "http://www.visitwales.co.uk/"
-
-  check "Scotland"
+  check "Does not apply to Havenstead"
+  fill_in "edition[nation_inapplicabilities_attributes][1][alternative_url]", with: "https://www.gov.uhrblx.com/"
   click_button "Save"
 end
 

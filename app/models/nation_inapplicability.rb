@@ -8,7 +8,9 @@ class NationInapplicability < ApplicationRecord
           where(nation_id: nation.id)
         }
 
-  validates :nation_id, inclusion: { in: Nation.potentially_inapplicable.map(&:id) }
+  # Maintain compatibility with archived UK-era editions and their original
+  # publisher records. The native Accord form offers only England/Havenstead.
+  validates :nation_id, inclusion: { in: Nation.all.map(&:id) }
   validates :alternative_url, uri: true, allow_blank: true
 
   attr_accessor :excluded

@@ -23,7 +23,7 @@ When(/^I begin drafting a new document$/) do
   fill_in "edition[title]", with: "Test publication"
   fill_in "edition[summary]", with: "Test summary"
   fill_in "edition[body]", with: "Test body"
-  check "Applies to all UK nations"
+  check "Applies to all UH nations"
 end
 
 When(/^I set the Lead organisation to an org I am not in$/) do
