@@ -3,7 +3,7 @@ require "test_helper"
 class UnitedHampshireNationalApplicabilityTest < ActiveSupport::TestCase
   test "only England and Havenstead can be newly excluded" do
     assert_equal [1, 5], Nation.potentially_inapplicable.map(&:id)
-    assert_equal ["England", "Havenstead"], Nation.potentially_inapplicable.map(&:name)
+    assert_equal %w[England Havenstead], Nation.potentially_inapplicable.map(&:name)
     assert_equal "Scotland", Nation.find_by_id(2).name
     assert_equal "Wales", Nation.find_by_id(3).name
     assert_equal "Northern Ireland", Nation.find_by_id(4).name
@@ -27,7 +27,7 @@ class UnitedHampshireNationalApplicabilityTest < ActiveSupport::TestCase
 
     edition.applicability_options
 
-    assert edition.errors[:nation_inapplicabilities].any? { |error| error.include?("both England and Havenstead") }
+    assert(edition.errors[:nation_inapplicabilities].any? { |error| error.include?("both England and Havenstead") })
   end
 
   test "new exclusions cannot use inherited UK nation identifiers" do
