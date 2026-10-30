@@ -48,7 +48,7 @@ module DocumentHelper
       end
 
       if options[:all_nation_applicability]
-        check "Applies to all UK nations"
+        check "Applies to all UH nations"
       end
     end
   end
